@@ -14,19 +14,17 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 	Student student = new Student();
-	String name = request.getParameter("name");
-	String age = request.getParameter("age");
-	String address = request.getParameter("address");
 	String action = request.getParameter("action");
-	//Department department = DepartmentDAO.find(Integer.parseInt(request.getParameter("departmentId")));
 	if ("add".equals(action)) {
 		String id = request.getParameter("id");
+		String name = request.getParameter("name");
+		String age = request.getParameter("age");
+		String address = request.getParameter("address");
+
 		student.setName(name);
 		student.setAge(age);
 		student.setAddress(address);
-
 		StudentDAO.insert(student);
-
 		String redirectURL = "listStudent.jsp";
 		response.sendRedirect(redirectURL);
 	}

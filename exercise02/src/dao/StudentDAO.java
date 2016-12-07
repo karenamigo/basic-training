@@ -11,17 +11,14 @@ import util.DbUtil;
 
 public class StudentDAO {
 
-	Student student = new Student();
-
 	//插入一筆資料 create
 	public static void insert(Student student) throws Exception {
-		String sql = "INSERT into student(name,age,address,departmentId) values(?,?,?,?)";
+		String sql = "INSERT into student(name,age,address) values(?,?,?)";
 		Connection connect = DbUtil.getConnection();
 		PreparedStatement pst = connect.prepareStatement(sql);
 		pst.setString(1, student.getName());
 		pst.setString(2, student.getAge());
 		pst.setString(3, student.getAddress());
-		pst.setInt(4, student.getDepartment().getId());
 		pst.executeUpdate();
 		DbUtil.close(pst);
 		DbUtil.close(connect);
@@ -30,14 +27,12 @@ public class StudentDAO {
 	//儲存一筆資料 update
 	public static void save(Student student) throws Exception {
 		Connection connect = DbUtil.getConnection();
-		//String updateSQL = "UPDATE student SET name = ?, age = ?, address =? , departmentId =? WHERE id=?";
+
 		String updateSQL = "UPDATE student SET name = ?, age = ?, address =?  WHERE id=?";
 		PreparedStatement pst = connect.prepareStatement(updateSQL);
 		pst.setString(1, student.getName());
 		pst.setString(2, student.getAge());
 		pst.setString(3, student.getAddress());
-
-		//pst.setInt(4, student.getDepartment().getId());
 		pst.setInt(4, student.getId());
 		pst.executeUpdate();
 		DbUtil.close(pst);

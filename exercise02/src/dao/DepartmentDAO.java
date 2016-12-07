@@ -24,6 +24,7 @@ public class DepartmentDAO {
 		DbUtil.close(connect);
 	}
 
+	//update一筆資料
 	public static void save(Department department) throws Exception {
 
 		String sql = "UPDATE department SET name = ? WHERE id = ? ";
@@ -43,6 +44,9 @@ public class DepartmentDAO {
 		Connection connect = DbUtil.getConnection();
 		PreparedStatement pst = connect.prepareStatement(sql);
 		pst.setInt(1, id);
+		pst.executeUpdate();
+		DbUtil.close(pst);
+		DbUtil.close(connect);
 
 	}
 
@@ -77,17 +81,11 @@ public class DepartmentDAO {
 		}
 	}
 
-	/**
-	 * 列出所有的 Department
-	 * 
-	 * @return
-	 * @throws Exception
-	 */
 	public static List<Department> listDepartments() throws Exception {
 
 		List<Department> list = new ArrayList<Department>();
 
-		String sql = "SELECT * FROM department ORDER BY id  ";
+		String sql = "SELECT * FROM department ORDER by id  ";
 
 		Connection connect = null;
 		PreparedStatement pst = null;

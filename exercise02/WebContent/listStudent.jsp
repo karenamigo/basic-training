@@ -11,8 +11,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-
-
+<title>學生列表</title>
 </head>
 <body>
 	<table align=right>
@@ -27,12 +26,12 @@
 		<table bgcolor="#CCCCCC" cellspacing=1 cellpadding=5 width=100%>
 			<tr bgcolor=#DDDDDD>
 				<th></th>
-				<th>ID</th>
-				<th>姓名</th>
-				<th>年齡</th>
-				<th>地址</th>
+				<th>學生ID</th>
+				<th>學生姓名</th>
+				<th>學生年齡</th>
+				<th>學生地址</th>
+				<th>修改/刪除</th>
 			</tr>
-
 			<c:forEach items="${ studentlist }" var="student">
 				<tr bgcolor="#FFFFFF">
 					<td><input type="checkbox" name="id" value="${ student.id }" /></td>

@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Create and Update</title>
+<title>新增或修改學生資料</title>
 
 </head>
 <body>
@@ -18,9 +18,13 @@
 		boolean isEdit = "edit".equals(action);
 		Student student = new Student();
 		if ("add".equals(action)) {
+			//student.setName(request.getParameter("name"));
+			//student.setAge(request.getParameter("age"));
+			//student.setAddress(request.getParameter("address"));
 			StudentDAO.insert(student);
 		}
 		if (isEdit) {
+
 			int id = Integer.parseInt(request.getParameter("id"));
 			student = StudentDAO.find(id);
 			request.setAttribute("student", student);
@@ -32,7 +36,7 @@
 			name="id" value="${ student.id }">
 
 		<fieldset>
-			<legend><%=isEdit ? "修改人員資料" : "新增學生資料"%></legend>
+			<legend><%=isEdit ? "修改學生資料" : "新增學生資料"%></legend>
 			<table align=center>
 				<tr>
 					<td>姓名</td>
@@ -51,8 +55,8 @@
 				</tr>
 				<tr>
 					<td></td>
-					<td><input type="submit" value="<%=isEdit ? "儲存" : "增加學生資訊"%>" />
-						<input type="button" value="返回" onclick="history.go(-1); " /></td>
+					<td><input type="submit" value="<%=isEdit ? "儲存" : "新增學生"%>" />
+						<input type="button" value="返回學生列表" onclick="history.go(-1); " /></td>
 				</tr>
 			</table>
 		</fieldset>
