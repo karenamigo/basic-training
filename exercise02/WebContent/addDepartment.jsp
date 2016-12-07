@@ -10,27 +10,24 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 	String action = request.getParameter("action");
-
 	if ("add".equals(action)) {
 		Department department = new Department();
 		department.setName(request.getParameter("name"));
-
 		DepartmentDAO.insert(department);
 	} else if ("del".equals(action)) {
-		DepartmentDAO.delete(new Integer(request.getParameter("id")));
+		DepartmentDAO.delete(Integer.parseInt(request.getParameter("id")));
 	} else if ("edit".equals(action)) {
-		Department department = DepartmentDAO.find(new Integer(request.getParameter("id")));
+		Department department = DepartmentDAO.find(Integer.parseInt(request.getParameter("id")));
 		request.setAttribute("department", department);
 	} else if ("save".equals(action)) {
-		Department department = DepartmentDAO.find(new Integer(request.getParameter("id")));
+		Department department = DepartmentDAO.find(Integer.parseInt(request.getParameter("id")));
 		department.setName(request.getParameter("name"));
 		DepartmentDAO.save(department);
 	}
-%>
-<%
 	List<Department> departmentList = DepartmentDAO.listDepartments();
 	request.setAttribute("departmentList", departmentList);
 %>
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -39,22 +36,25 @@
 <body>
 	<table>
 		<tr>
+
 			<th>系所名稱</th>
-			<th>操作</th>
+			<th>修改/刪除</th>
 		</tr>
-		<c:forEach items="${ departmentList }" var="department">
+		<c:forEach items="${departmentList }" var="department">
 			<tr>
-				<td>${ deparment.name }</td>
+
+				<td>${department.name }</td>
 				<td><a
 					href='addDepartment.jsp?action=edit&id=${ department.id }'>修改</a> <a
-					href='addDepartment.jsp?action=del&id=${ department.id }'>刪除</a></td>
+					href='addDepartment.jsp?action=del&id=${ department.id }'
+					onclick="return confirm('確定刪除?')">刪除</a></td>
 			</tr>
 		</c:forEach>
 	</table>
 
 	<form action="addDepartment.jsp" method="post">
 		<input type="hidden" name="action"
-			value="${ param.action == 'edit' ? 'save' : 'add' }"> <input
+			value="${ param.action == 'edit' ? 'save' : 'add'}"> <input
 			type="hidden" name="id" value="${param.id }">
 		<fieldset>
 			<legend>${ param.action == 'edit' ? '修改系所資料' : '增加系所' }</legend>
@@ -66,10 +66,8 @@
 				</tr>
 				<tr>
 					<td></td>
-					<td><input type="submit" value="傳送系所資訊" /> <input
-						type="button" value="返回系所列表"
-						onclick="location='addDepartment.jsp'" /> <input type="button"
-						value="返回學生列表" onclick="location='listStudent.jsp'" /></td>
+					<td><input type="submit" value="儲存" /> <input
+						type="button" value="返回學生列表" onclick="location='listStudent.jsp'" /></td>
 				</tr>
 			</table>
 		</fieldset>

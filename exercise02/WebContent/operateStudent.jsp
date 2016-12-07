@@ -24,9 +24,7 @@
 		student.setName(name);
 		student.setAge(age);
 		student.setAddress(address);
-
 		StudentDAO.insert(student);
-
 		String redirectURL = "listStudent.jsp";
 		response.sendRedirect(redirectURL);
 	}
@@ -53,6 +51,7 @@
 	}
 	if ("del".equals(action)) {
 		// 取一個或者多個 ID 值
+		DbUtil db = new DbUtil();
 		String[] id = request.getParameterValues("id");
 		if (id == null || id.length == 0) {
 			out.println("沒有勾選任何行");
@@ -74,7 +73,7 @@
 		PreparedStatement pst = null;
 
 		try {
-			connect = DbUtil.getConnection();
+			connect = db.getConnection();
 			pst = connect.prepareStatement(sql);
 			pst.executeUpdate();
 
@@ -85,8 +84,8 @@
 			out.println("執行SQL\"" + sql + "\"時發生例外：" + e.getMessage());
 			e.printStackTrace();
 		} finally {
-			DbUtil.close(pst);
-			DbUtil.close(connect);
+			db.close(pst);
+			db.close(connect);
 		}
 	}
 %>

@@ -13,40 +13,46 @@ public class DepartmentDAO {
 
 	Department department = new Department();
 
-	//create 一筆資料
 	public static void insert(Department department) throws Exception {
+		DbUtil db = new DbUtil();
 		String sql = "INSERT INTO department (name) VALUES ( ? ) ";
-		Connection connect = DbUtil.getConnection();
+		Connection connect = db.getConnection();
 		PreparedStatement pst = connect.prepareStatement(sql);
 		pst.setString(1, department.getName());
 		pst.executeUpdate();
-		DbUtil.close(pst);
-		DbUtil.close(connect);
+		db.close(pst);
+		db.close(connect);
 	}
 
 	public static void save(Department department) throws Exception {
+		DbUtil db = new DbUtil();
 
 		String sql = "UPDATE department SET name = ? WHERE id = ? ";
-		Connection connect = DbUtil.getConnection();
+		Connection connect = db.getConnection();
 		PreparedStatement pst = connect.prepareStatement(sql);
 		pst.setString(1, department.getName());
 		pst.setInt(2, department.getId());
 		pst.executeUpdate();
-		DbUtil.close(pst);
-		DbUtil.close(connect);
+		db.close(pst);
+		db.close(connect);
 
 	}
 
 	public static void delete(Integer id) throws Exception {
+		DbUtil db = new DbUtil();
 
 		String sql = "DELETE FROM department WHERE id = ? ";
-		Connection connect = DbUtil.getConnection();
+		Connection connect = db.getConnection();
 		PreparedStatement pst = connect.prepareStatement(sql);
 		pst.setInt(1, id);
+		pst.executeUpdate();
+		db.close(pst);
+		db.close(connect);
 
 	}
 
 	public static Department find(Integer id) throws Exception {
+		DbUtil db = new DbUtil();
 
 		String sql = "SELECT * FROM department WHERE id = ? ";
 
@@ -55,7 +61,7 @@ public class DepartmentDAO {
 		ResultSet rs = null;
 
 		try {
-			connect = DbUtil.getConnection();
+			connect = db.getConnection();
 			pst = connect.prepareStatement(sql);
 			pst.setInt(1, id);
 
@@ -71,30 +77,25 @@ public class DepartmentDAO {
 			}
 
 		} finally {
-			DbUtil.close(rs);
-			DbUtil.close(pst);
-			DbUtil.close(connect);
+			db.close(rs);
+			db.close(pst);
+			db.close(connect);
 		}
 	}
 
-	/**
-	 * 列出所有的 Department
-	 * 
-	 * @return
-	 * @throws Exception
-	 */
 	public static List<Department> listDepartments() throws Exception {
+		DbUtil db = new DbUtil();
 
 		List<Department> list = new ArrayList<Department>();
 
-		String sql = "SELECT * FROM department ORDER BY id  ";
+		String sql = "SELECT * FROM department ORDER by id  ";
 
 		Connection connect = null;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 
 		try {
-			connect = DbUtil.getConnection();
+			connect = db.getConnection();
 			pst = connect.prepareStatement(sql);
 			rs = pst.executeQuery();
 
@@ -106,9 +107,9 @@ public class DepartmentDAO {
 			}
 
 		} finally {
-			DbUtil.close(rs);
-			DbUtil.close(pst);
-			DbUtil.close(connect);
+			db.close(rs);
+			db.close(pst);
+			db.close(connect);
 
 		}
 		return list;

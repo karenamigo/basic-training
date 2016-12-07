@@ -11,42 +11,39 @@ import util.DbUtil;
 
 public class StudentDAO {
 
-	Student student = new Student();
-
 	//插入一筆資料 create
 	public static void insert(Student student) throws Exception {
-		String sql = "INSERT into student(name,age,address,departmentId) values(?,?,?,?)";
-		Connection connect = DbUtil.getConnection();
+		DbUtil db = new DbUtil();
+		String sql = "INSERT into student(name,age,address) values(?,?,?)";
+		Connection connect = db.getConnection();
 		PreparedStatement pst = connect.prepareStatement(sql);
 		pst.setString(1, student.getName());
 		pst.setString(2, student.getAge());
 		pst.setString(3, student.getAddress());
-		pst.setInt(4, student.getDepartment().getId());
 		pst.executeUpdate();
-		DbUtil.close(pst);
-		DbUtil.close(connect);
+		db.close(pst);
+		db.close(connect);
 	}
 
 	//儲存一筆資料 update
 	public static void save(Student student) throws Exception {
-		Connection connect = DbUtil.getConnection();
-		//String updateSQL = "UPDATE student SET name = ?, age = ?, address =? , departmentId =? WHERE id=?";
+		DbUtil db = new DbUtil();
+		Connection connect = db.getConnection();
+
 		String updateSQL = "UPDATE student SET name = ?, age = ?, address =?  WHERE id=?";
 		PreparedStatement pst = connect.prepareStatement(updateSQL);
 		pst.setString(1, student.getName());
 		pst.setString(2, student.getAge());
 		pst.setString(3, student.getAddress());
-
-		//pst.setInt(4, student.getDepartment().getId());
 		pst.setInt(4, student.getId());
 		pst.executeUpdate();
-		DbUtil.close(pst);
-		DbUtil.close(connect);
+		db.close(pst);
+		db.close(connect);
 	}
 
 	//查詢一筆資料 
 	public static Student find(Integer id) throws Exception {
-
+		DbUtil db = new DbUtil();
 		String sql = "SELECT * FROM student WHERE id = ? ";
 
 		Connection connect = null;
@@ -54,7 +51,7 @@ public class StudentDAO {
 		ResultSet rs = null;
 
 		try {
-			connect = DbUtil.getConnection();
+			connect = db.getConnection();
 			pst = connect.prepareStatement(sql);
 			pst.setInt(1, id);
 
@@ -73,16 +70,16 @@ public class StudentDAO {
 			}
 
 		} finally {
-			DbUtil.close(rs);
-			DbUtil.close(pst);
-			DbUtil.close(connect);
+			db.close(rs);
+			db.close(pst);
+			db.close(connect);
 		}
 	}
 
 	//列出所有學生資訊
 	public static List<Student> listAllStudents() throws Exception {
 		List<Student> list = new ArrayList<Student>();
-
+		DbUtil db = new DbUtil();
 		String sql = "SELECT * FROM student ORDER BY id  ";
 
 		Connection connect = null;
@@ -90,7 +87,7 @@ public class StudentDAO {
 		ResultSet rs = null;
 
 		try {
-			connect = DbUtil.getConnection();
+			connect = db.getConnection();
 			pst = connect.prepareStatement(sql);
 
 			rs = pst.executeQuery();
@@ -110,9 +107,9 @@ public class StudentDAO {
 			}
 
 		} finally {
-			DbUtil.close(rs);
-			DbUtil.close(pst);
-			DbUtil.close(connect);
+			db.close(rs);
+			db.close(pst);
+			db.close(connect);
 		}
 
 		return list;
