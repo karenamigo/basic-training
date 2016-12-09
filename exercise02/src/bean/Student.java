@@ -1,5 +1,7 @@
 package bean;
 
+import java.util.Set;
+
 public class Student {
 
 	private Integer id;
@@ -10,15 +12,7 @@ public class Student {
 
 	private String address;
 
-	private Department department;
-
-	public void setDepartment(Department department) {
-		this.department = department;
-	}
-
-	public Department getDepartment() {
-		return department;
-	}
+	//private Set<Movie> movies;
 
 	public void setAddress(String address) {
 		this.address = address;
@@ -51,5 +45,17 @@ public class Student {
 	public String getAge() {
 		return age;
 	}
+/*
+	public Set<Movie> getMovies() {
+		return movies;
+	}
+
+	public void setMovies(Set<Movie> movies) {
+		this.movies = movies;
+	}
+
+	public void addMovies(Movie movie) {
+		movies.add(movie);
+	}*/
 
 }

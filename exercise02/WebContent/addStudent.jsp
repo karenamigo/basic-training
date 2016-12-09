@@ -11,48 +11,36 @@
 
 </head>
 <body>
-
-	<%
-		request.setCharacterEncoding("UTF-8");
-		String action = request.getParameter("action");
-		boolean isEdit = "edit".equals(action);
-		Student student = new Student();
-		if ("add".equals(action)) {
-			StudentDAO.insert(student);
-		}
-		if (isEdit) {
-			int id = Integer.parseInt(request.getParameter("id"));
-			student = StudentDAO.find(id);
-			request.setAttribute("student", student);
-		}
-	%>
-	<form action="operateStudent.jsp" method="post">
+	<form
+		action="OperateStudentServlet?action=${param.action == 'edit' ? 'save' : 'add' }"
+		method="post">
 		<input type="hidden" name="action"
-			value="<%=isEdit ? "save" : "add"%>"> <input type="hidden"
-			name="id" value="${ student.id }">
+			value="${ param.action == 'edit' ? 'save' : 'add'}"> <input
+			type="hidden" name="id" value="${student.id }">
 
 		<fieldset>
-			<legend><%=isEdit ? "修改人員資料" : "新增學生資料"%></legend>
+			<legend>"${param.action == 'edit'? '修改人員資料':'新增學生資料'}"</legend>
 			<table align=center>
 				<tr>
 					<td>姓名</td>
 					<td><input type="text" name="name"
-						value="<%=isEdit ? student.getName() : ""%> " /></td>
+						value="${param.action == 'edit'? student.name : ''}" /></td>
 				</tr>
 				<tr>
 					<td>年齡</td>
 					<td><input type="text" name="age"
-						value="<%=isEdit ? student.getAge() : ""%>" /></td>
+						value="${param.action == 'edit'? student.age : '' }" /></td>
 				</tr>
 				<tr>
 					<td>地址</td>
 					<td><input type="text" name="address"
-						value="<%=isEdit ? student.getAddress() : ""%>" /></td>
+						value="${param.action == 'edit'? student.address : '' }" /></td>
 				</tr>
 				<tr>
 					<td></td>
-					<td><input type="submit" value="<%=isEdit ? "儲存" : "增加學生資訊"%>" />
-						<input type="button" value="返回" onclick="history.go(-1); " /></td>
+					<td><input type="submit"
+						value="${param.action == 'edit'? '儲存':'增加學生資料'}" /> <input
+						type="button" value="返回" onclick="history.go(-1); " /></td>
 				</tr>
 			</table>
 		</fieldset>

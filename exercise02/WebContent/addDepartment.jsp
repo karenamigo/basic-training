@@ -1,32 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<jsp:directive.page import="java.util.List" />
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<jsp:directive.page import="java.util.List" />
+
 <jsp:directive.page import="bean.*" />
 <jsp:directive.page import="dao.*" />
 <jsp:directive.page import="util.*" />
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<%
-	request.setCharacterEncoding("UTF-8");
-	String action = request.getParameter("action");
-	if ("add".equals(action)) {
-		Department department = new Department();
-		department.setName(request.getParameter("name"));
-		DepartmentDAO.insert(department);
-	} else if ("del".equals(action)) {
-		DepartmentDAO.delete(Integer.parseInt(request.getParameter("id")));
-	} else if ("edit".equals(action)) {
-		Department department = DepartmentDAO.find(Integer.parseInt(request.getParameter("id")));
-		request.setAttribute("department", department);
-	} else if ("save".equals(action)) {
-		Department department = DepartmentDAO.find(Integer.parseInt(request.getParameter("id")));
-		department.setName(request.getParameter("name"));
-		DepartmentDAO.save(department);
-	}
-	List<Department> departmentList = DepartmentDAO.listDepartments();
-	request.setAttribute("departmentList", departmentList);
-%>
 
 <html>
 <head>
@@ -36,23 +17,24 @@
 <body>
 	<table>
 		<tr>
-
 			<th>系所名稱</th>
 			<th>修改/刪除</th>
 		</tr>
-		<c:forEach items="${departmentList }" var="department">
+		<c:forEach items="${departmentlist }" var="department">
 			<tr>
 
 				<td>${department.name }</td>
 				<td><a
-					href='addDepartment.jsp?action=edit&id=${ department.id }'>修改</a> <a
-					href='addDepartment.jsp?action=del&id=${ department.id }'
+					href='OperateDepartmentServlet?action=edit&id=${ department.id }'>修改</a>
+					<a
+					href='OperateDepartmentServlet?action=delete&id=${ department.id }'
 					onclick="return confirm('確定刪除?')">刪除</a></td>
 			</tr>
 		</c:forEach>
 	</table>
-
-	<form action="addDepartment.jsp" method="post">
+	<form
+		action="OperateDepartmentServlet?action=${param.action == 'edit' ? 'save' : 'add' }"
+		method="post">
 		<input type="hidden" name="action"
 			value="${ param.action == 'edit' ? 'save' : 'add'}"> <input
 			type="hidden" name="id" value="${param.id }">
@@ -66,8 +48,9 @@
 				</tr>
 				<tr>
 					<td></td>
-					<td><input type="submit" value="儲存" /> <input
-						type="button" value="返回學生列表" onclick="location='listStudent.jsp'" /></td>
+					<td><input type="submit" value="儲存" /> <input type="button"
+						value="返回學生列表"
+						onclick="location='OperateStudentServlet?action=list'" /></td>
 				</tr>
 			</table>
 		</fieldset>
