@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <jsp:directive.page import="bean.*" />
 <jsp:directive.page import="dao.*" />
 <jsp:directive.page import="util.*" />
@@ -8,7 +9,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Create and Update</title>
-
+<%
+	GenericDao<Department> departmentDao = new GenericDao<Department>();
+	request.setAttribute("departmentlist", departmentDao.listAll("from Department"));
+%>
 </head>
 <body>
 	<form
@@ -37,10 +41,20 @@
 						value="${param.action == 'edit'? student.address : '' }" /></td>
 				</tr>
 				<tr>
+					<td>科系</td>
+					<td><select name="departmentId">
+							<c:forEach items="${ departmentlist }" var="department">
+								<option value="${ department.id }">${ department.name }</option>
+							</c:forEach>
+					</select></td>
+				</tr>
+				<tr>
+
 					<td></td>
 					<td><input type="submit"
 						value="${param.action == 'edit'? '儲存':'增加學生資料'}" /> <input
-						type="button" value="返回" onclick="history.go(-1); " /></td>
+						type="button" value="返回"
+						onclick="location='OperateStudentServlet?action=list' " /></td>
 				</tr>
 			</table>
 		</fieldset>

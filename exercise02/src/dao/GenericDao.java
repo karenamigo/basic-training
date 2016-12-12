@@ -14,7 +14,7 @@ public class GenericDao<T> {
 		try {
 			session.beginTransaction();//開始一組會話操作
 			session.save(object);//將物件映射至DB_table中儲存
-			//session.getTransaction().commit(); //需要commit後才會真正更新DB data
+			session.getTransaction().commit(); //需要commit後才會真正更新DB data
 		} catch (Exception e) {
 			session.getTransaction().rollback(); //若有錯誤則取消所有變更
 		} finally {
@@ -31,6 +31,7 @@ public class GenericDao<T> {
 		} catch (Exception e) {
 			session.getTransaction().rollback();
 		} finally {
+
 			session.close();
 		}
 
@@ -45,6 +46,7 @@ public class GenericDao<T> {
 		} catch (Exception e) {
 			session.getTransaction().rollback();
 		} finally {
+
 			session.close();
 		}
 	}

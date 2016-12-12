@@ -1,12 +1,12 @@
 package bean;
 
-public class Movie {
+public class Course {
 
-	private Integer id;
+	private int id;
 
 	private String name;
 
-	public void setId(Integer id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -21,4 +21,5 @@ public class Movie {
 	public String getName() {
 		return name;
 	}
+
 }

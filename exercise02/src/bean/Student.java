@@ -1,7 +1,16 @@
 package bean;
 
+import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Table(
+	name = "tb_person2")
 public class Student {
 
 	private Integer id;
@@ -12,7 +21,14 @@ public class Student {
 
 	private String address;
 
-	//private Set<Movie> movies;
+	@ManyToOne(
+		cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinColumn(
+		name = "department_id")
+	private Department department;
+
+	@OneToMany
+	private Set<Course> courses;
 
 	public void setAddress(String address) {
 		this.address = address;
@@ -45,17 +61,21 @@ public class Student {
 	public String getAge() {
 		return age;
 	}
-/*
-	public Set<Movie> getMovies() {
-		return movies;
+
+	public void setDepartment(Department department) {
+		this.department = department;
 	}
 
-	public void setMovies(Set<Movie> movies) {
-		this.movies = movies;
+	public Department getDepartment() {
+		return department;
 	}
 
-	public void addMovies(Movie movie) {
-		movies.add(movie);
-	}*/
+	public Set<Course> getCourses() {
+		return courses;
+	}
+
+	public void setCourses(Set<Course> courses) {
+		this.courses = courses;
+	}
 
 }

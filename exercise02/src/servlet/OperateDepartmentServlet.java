@@ -72,7 +72,6 @@ public class OperateDepartmentServlet extends HttpServlet {
 	protected void edit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		int id = Integer.parseInt(request.getParameter("id"));
-
 		department = departmentDao.find(Department.class, id);
 		request.setAttribute("department", department);
 		request.getRequestDispatcher("/addDepartment.jsp").forward(request, response);
@@ -86,7 +85,6 @@ public class OperateDepartmentServlet extends HttpServlet {
 
 		department.setName(request.getParameter("name"));
 		departmentDao.update(department);
-
 		list(request, response);
 	}
 

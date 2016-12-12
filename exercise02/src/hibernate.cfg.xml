@@ -12,6 +12,8 @@
 
 		<mapping resource="bean/Department.hbm.xml" />
 		<mapping resource="bean/Student.hbm.xml" />
+		<mapping class="bean.Course" />
+		<mapping resource="bean/Course.hbm.xml" />
 
 	</session-factory>
 </hibernate-configuration>
