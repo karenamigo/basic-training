@@ -16,7 +16,7 @@
 </head>
 <body>
 	<form
-		action="OperateStudentServlet?action=${param.action == 'edit' ? 'save' : 'add' }"
+		action="StudentServlet?action=${param.action == 'edit' ? 'save' : 'add' }"
 		method="post">
 		<input type="hidden" name="action"
 			value="${ param.action == 'edit' ? 'save' : 'add'}"> <input
@@ -26,19 +26,26 @@
 			<legend>"${param.action == 'edit'? '修改人員資料':'新增學生資料'}"</legend>
 			<table align=center>
 				<tr>
+					<td>ID</td>
+					<td><input readonly name="id" value=${student.id } /></td>
+				</tr>
+				<tr>
 					<td>姓名</td>
 					<td><input type="text" name="name"
-						value="${param.action == 'edit'? student.name : ''}" /></td>
+						value="${param.action == 'edit'? student.name : ''}"
+						required="required" /></td>
 				</tr>
 				<tr>
 					<td>年齡</td>
-					<td><input type="text" name="age"
-						value="${param.action == 'edit'? student.age : '' }" /></td>
+					<td><input type="number" name="age"
+						value="${param.action == 'edit'? student.age : '' }"
+						required="required" /></td>
 				</tr>
 				<tr>
 					<td>地址</td>
 					<td><input type="text" name="address"
-						value="${param.action == 'edit'? student.address : '' }" /></td>
+						value="${param.action == 'edit'? student.address : '' }"
+						required="required" /></td>
 				</tr>
 				<tr>
 					<td>科系</td>
@@ -54,7 +61,7 @@
 					<td><input type="submit"
 						value="${param.action == 'edit'? '儲存':'增加學生資料'}" /> <input
 						type="button" value="返回"
-						onclick="location='OperateStudentServlet?action=list' " /></td>
+						onclick="location='StudentServlet?action=list' " /></td>
 				</tr>
 			</table>
 		</fieldset>

@@ -1,16 +1,12 @@
 package bean;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
-@Table(
-	name = "tb_person2")
 public class Student {
 
 	private Integer id;

@@ -15,10 +15,10 @@
 </head>
 <body>
 	<button type="button" name="StdList"
-		onclick="location='OperateStudentServlet?action=list'">返回學生列表</button>
+		onclick="location='StudentServlet?action=list'">返回學生列表</button>
 	<table cellspacing=1 cellpadding=5>
 		<tr>
-			<th>修課編號</th>
+
 			<th>修課名稱</th>
 		</tr>
 		<%
@@ -33,7 +33,6 @@
 				Set<Course> course = std.getCourses();
 				for (Course c : course) {
 					out.write("<tr>");
-					out.write("<td>" + c.getId() + "</td>");
 					out.write("<td>" + c.getName() + "</td>");
 					out.write("</tr>");
 				}

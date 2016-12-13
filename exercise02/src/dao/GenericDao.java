@@ -1,6 +1,5 @@
 package dao;
 
-import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -63,7 +62,7 @@ public class GenericDao<T> {
 
 	}
 
-	public T find(Class<? extends T> c, Serializable id) {
+	public T find(Class<? extends T> c, int id) {
 		Session session = HibernateUtil.getSesstionFactory().openSession();
 		try {
 			session.beginTransaction();

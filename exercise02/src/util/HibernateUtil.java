@@ -5,17 +5,17 @@ import org.hibernate.cfg.Configuration;
 
 public class HibernateUtil {
 
-	private static SessionFactory sessionFactory;
+	private static final SessionFactory SESSIONFACTORY;
 	static {
 		try {
-			sessionFactory = new Configuration().configure().buildSessionFactory();
+			SESSIONFACTORY = new Configuration().configure().buildSessionFactory();
 		} catch (Throwable e) {
 			throw new ExceptionInInitializerError(e);
 		}
 	}
 
 	public static SessionFactory getSesstionFactory() {
-		return sessionFactory;
+		return SESSIONFACTORY;
 	}
 
 	public static void shutdown() {

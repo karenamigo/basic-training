@@ -23,15 +23,14 @@
 			<tr>
 				<td>${department.name }</td>
 				<td><a
-					href='OperateDepartmentServlet?action=edit&id=${ department.id }'>修改</a>
-					<a
-					href='OperateDepartmentServlet?action=delete&id=${ department.id }'
+					href='DepartmentServlet?action=edit&id=${ department.id }'>修改</a> <a
+					href='DepartmentServlet?action=delete&id=${ department.id }'
 					onclick="return confirm('確定刪除?')">刪除</a></td>
 			</tr>
 		</c:forEach>
 	</table>
 	<form
-		action="OperateDepartmentServlet?action=${param.action == 'edit' ? 'save' : 'add' }"
+		action="DepartmentServlet?action=${param.action == 'edit' ? 'save' : 'add' }"
 		method="post">
 		<input type="hidden" name="action"
 			value="${ param.action == 'edit' ? 'save' : 'add'}"> <input
@@ -47,8 +46,7 @@
 				<tr>
 					<td></td>
 					<td><input type="submit" value="儲存" /> <input type="button"
-						value="返回學生列表"
-						onclick="location='OperateStudentServlet?action=list'" /></td>
+						value="返回學生列表" onclick="location='StudentServlet?action=list'" /></td>
 				</tr>
 			</table>
 		</fieldset>

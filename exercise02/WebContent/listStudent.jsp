@@ -19,7 +19,7 @@
 	</table>
 	<br />
 	<br />
-	<form action="OperateStudentServlet" method="post">
+	<form action="StudentServlet" method="post">
 		<table bgcolor="#CCCCCC" cellspacing=1 cellpadding=5 width=100%>
 			<tr bgcolor=#DDDDDD>
 
@@ -39,10 +39,9 @@
 					<td>${ student.address }</td>
 					<td>${ student.department.id }</td>
 					<td><a
-						href="listCourse.jsp?action=showcourse&id=${ student.id }">修課列表</a></td>
-					<td><a
-						href="OperateStudentServlet?action=edit&id=${ student.id }">修改</a>
-						<a href="OperateStudentServlet?action=delete&id=${ student.id }"
+						href="listStdCourse.jsp?action=showcourse&id=${ student.id }">修課列表</a></td>
+					<td><a href="StudentServlet?action=edit&id=${ student.id }">修改</a>
+						<a href="StudentServlet?action=delete&id=${ student.id }"
 						onclick="return confirm('確定刪除?')">刪除</a></td>
 				</tr>
 			</c:forEach>

@@ -35,10 +35,10 @@
 
 			<%
 				while (rs.next()) {
-						out.println("<tr><td>" + rs.getObject("stdID") + "</td>");//學號
-						out.println("<td>" + rs.getObject("stdName") + "</td>");//姓名
-						out.println("<td>" + rs.getObject("stdAddress") + "</td>");//地址
-						out.println("<td>" + rs.getObject("stdAge") + "</td></tr>");//年齡
+						out.println("<tr><td>" + rs.getObject("id") + "</td>");//學號
+						out.println("<td>" + rs.getObject("name") + "</td>");//姓名
+						out.println("<td>" + rs.getObject("address") + "</td>");//地址
+						out.println("<td>" + rs.getObject("age") + "</td></tr>");//年齡
 
 					}
 					rs.close();
