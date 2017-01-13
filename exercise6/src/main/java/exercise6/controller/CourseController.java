@@ -1,7 +1,6 @@
 package exercise6.controller;
 
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,9 +27,9 @@ public class CourseController {
 	@ResponseBody
 	@RequestMapping(
 		value = "/loadCourses/{studentId}")
-	public Set<Course> loadCourses(@PathVariable int studentId) {
+	public List<Course> loadCourses(@PathVariable int studentId) {
 		Student student = studentService.getById(studentId);
-		Set<Course> course = student.getCourses();
+		List<Course> course = student.getCourses();
 		return course;
 	}
 

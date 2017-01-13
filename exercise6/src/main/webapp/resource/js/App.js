@@ -48,10 +48,18 @@ var App = {
 				: $("createStudent").value;
 		var url = "/exercise6/student/detail/" + $(this).value;
 		params = "id= " + studentId;
-		ChangeModeObj.disableStudentBtn();
 
 		App.doPost(url, App.listCallback, params);
 
+		var div = document.getElementById("listCourseDiv");// 使用toggle方式來做listCourseDiv的show&hide
+		if (div.style.display == 'block') {
+			ChangeModeObj.enableStdBtn();
+			div.style.display = 'none';
+			return;
+		} else {
+			ChangeModeObj.disableStudentBtn();
+			div.style.display = 'block';
+		}
 	},
 
 	deleteItem : function() {

@@ -120,6 +120,14 @@ var ChangeModeObj = {
 			$$('button.deleteStudent')[i].disabled = true;
 			$$('button.open')[i].disabled = false;
 		}
+	},
+	enableStdBtn : function() {
+		$('createStudent').disabled = false;
+		for (var i = 0; i < Student.dataCount; i++) {
+			$$('button.updateStudent')[i].disabled = false;
+			$$('button.deleteStudent')[i].disabled = false;
+			$$('button.open')[i].disabled = false;
+		}
 	}
 
 }

@@ -1,5 +1,6 @@
 package exercise6.model;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -50,7 +51,7 @@ public class Student {
 	@JoinColumn(
 		name = "student_id")
 	@Autowired
-	private Set<Course> courses;
+	private List<Course> courses;
 
 	public Student() {
 
@@ -104,11 +105,11 @@ public class Student {
 		return department;
 	}
 
-	public Set<Course> getCourses() {
+	public List<Course> getCourses() {
 		return courses;
 	}
 
-	public void setCourses(Set<Course> courses) {
+	public void setCourses(List<Course> courses) {
 		this.courses = courses;
 	}
 

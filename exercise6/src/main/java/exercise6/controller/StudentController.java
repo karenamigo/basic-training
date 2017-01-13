@@ -1,10 +1,8 @@
 package exercise6.controller;
 
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -46,9 +44,9 @@ public class StudentController {
 	@RequestMapping(
 		value = "/detail/{studentId}")
 	@ResponseBody
-	public Set<Course> detail(@PathVariable int studentId) {
+	public List<Course> detail(@PathVariable int studentId) {
 		Student student = studentService.getById(studentId);
-		Set<Course> course = student.getCourses();
+		List<Course> course = student.getCourses();
 		return course;
 	}
 
