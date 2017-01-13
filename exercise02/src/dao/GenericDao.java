@@ -54,7 +54,6 @@ public class GenericDao<T> {
 	public List<T> listAll(String Hql) {
 		Session session = HibernateUtil.getSesstionFactory().openSession();
 		try {
-			session.beginTransaction();
 			return session.createQuery(Hql).getResultList();
 		} finally {
 			session.close();
@@ -65,7 +64,6 @@ public class GenericDao<T> {
 	public T find(Class<? extends T> c, int id) {
 		Session session = HibernateUtil.getSesstionFactory().openSession();
 		try {
-			session.beginTransaction();
 			return (T) session.get(c, id);
 		} finally {
 

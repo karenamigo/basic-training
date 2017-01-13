@@ -9,9 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import bean.Department;
 import dao.GenericDao;
 
-/**
- * Servlet implementation class DepartmentServlet
- */
 @WebServlet("/DepartmentServlet")
 public class DepartmentServlet extends AbstractServlet {
 

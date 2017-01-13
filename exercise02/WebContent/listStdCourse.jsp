@@ -18,11 +18,14 @@
 		onclick="location='StudentServlet?action=list'">返回學生列表</button>
 	<table cellspacing=1 cellpadding=5>
 		<tr>
-
 			<th>修課名稱</th>
+		</tr>
+		<tr>
+			<td>${course.name }</td>
 		</tr>
 		<%
 			String action = request.getParameter("action");
+
 			if ("showcourse".equals(action)) {
 				int id = Integer.parseInt(request.getParameter("id"));
 				Configuration cfg = new Configuration().configure();
