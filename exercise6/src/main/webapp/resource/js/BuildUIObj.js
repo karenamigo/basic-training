@@ -3,13 +3,9 @@ var BuildUIObj = {
 	title : null,
 	content : null,
 	table : null,
-	initTable : function(responseData) { // 初始化表格
+	initTable : function(responseData) {
 		var model = App.modelObj;
-		model.hashData = $H();
-		console.log("model = " + model.data.id);
-		// BuildUIObj.showStudentTbTitle(responseData);
 		BuildUIObj.table = CreateElement.initTable();
-
 		var listDiv = document.getElementById("list" + model.name + "Div");
 		if (listDiv.firstChild) {
 			listDiv.removeChild(listDiv.firstChild);
@@ -32,10 +28,8 @@ var BuildUIObj = {
 		TableBuilder.createRow();
 	},
 	initContent : function(responseData) {
-
 		App.modelObj.dataCount = 0;
 		var json = JSON.parse(responseData);
-
 		if (String(json) != "undefined") {
 			for (var i = 0; i < json.length; i++) {
 				App.modelObj.dataCount++;
@@ -51,7 +45,7 @@ var BuildUIObj = {
 		for (var i = 0; i < model.dataCount; i++) {
 
 			$$('button.update' + model.name)[i].addEventListener('click',
-					ChangeModeObj.setEditView, true);
+					ChangeBtnStatus.setEditView, true);
 
 			$$('button.delete' + model.name)[i].addEventListener('click',
 					App.deleteItem, true);
@@ -59,9 +53,9 @@ var BuildUIObj = {
 			$$('button.cancel' + model.name)[i].hide();
 
 		}
-		BuildUIObj.addOtherListener(model);
+		BuildUIObj.addShowDetailsBtn(model);
 	},
-	addOtherListener : function(model) {
+	addShowDetailsBtn : function(model) {
 		if (model.name == "Student") {
 			for (var i = 0; i < model.dataCount; i++) {
 				$$('button.open')[i].addEventListener('click', App.showDetails,
@@ -70,7 +64,7 @@ var BuildUIObj = {
 		}
 	},
 	initUpdate : function(id) {
-		ChangeModeObj.setDataView(id);
+		ChangeBtnStatus.setDataView(id);
 	},
 
 	setTitle : function(model) {

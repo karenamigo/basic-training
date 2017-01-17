@@ -22,6 +22,10 @@ public class Course {
 		name = "id")
 	private int id;
 
+	/*@Column(
+		name = "std_id")
+	private int std_id;
+	*/
 	@Column(
 		name = "name")
 	private String name;
@@ -33,11 +37,16 @@ public class Course {
 	public Course(int id, String name) {
 		this.id = id;
 		this.name = name;
+		//	this.std_id = std_id;
 	}
 
 	public void setId(int id) {
 		this.id = id;
 	}
+
+	/*public void setStdId(int std_id) {
+		this.std_id = std_id;
+	}*/
 
 	public int getId() {
 		return id;

@@ -1,30 +1,31 @@
-var ChangeModeObj = {
-	name : "ChangeModeObj",
+var ChangeBtnStatus = {
+	name : "ChangeBtnStatus",
 	hashData : $H(),
 	setEditView : function() {
 		var id = event.target.value;
-		ChangeModeObj.setEditViewBtn(id);
+		ChangeBtnStatus.setEditViewBtn(id);
 		var model = App.modelObj;
-		var data = new Array();
+		var data = []; // 不要用new Array()
 		var open = document.getElementById('open' + id);
 
-		for (var i = 0; i < model.columns.length; i++) {
+		for (var i = 0, size = model.columns.length; i < size; i++) {
+			// jquery foreach
 			var objTd = document.getElementById(i + 'td' + id);
-			var objValue = (objTd.firstChild.value == id) ? open : objTd;
-			objValue = ChangeModeObj.getElementValue(objValue);
+			var objValue = (objTd.firstChild.value == id) ? open : objTd; // 不要用firstchild，使用class帶入當行所有資料即可
+			objValue = ChangeBtnStatus.getElementValue(objValue);
 			data.push(objValue);
-
-			ChangeModeObj.setTbEditable(objTd, model.columns[i].name, objValue);
+			ChangeBtnStatus.setTbEditable(objTd, model.columns[i].name,
+					objValue);
 		}
-		ChangeModeObj.hashData.set(id, data);
-		ChangeModeObj.setButtonDisable(id);
+		ChangeBtnStatus.hashData.set(id, data);
+		ChangeBtnStatus.setButtonDisable(id);
 
 	},
 	setDataView : function(key) {
 		var isCancel = ((String($(this).value) != "undefined")) ? 1 : 0;
 		var id = (isCancel == 1) ? $(this).value : key;
 
-		ChangeModeObj.setDataViewBtn(id);
+		ChangeBtnStatus.setDataViewBtn(id);
 
 		if ($$("button.save").length == 0) {
 			App.crudCallback();
@@ -33,8 +34,7 @@ var ChangeModeObj = {
 
 		var model = App.modelObj;
 		var open = document.getElementById('open' + id);
-		var data = ChangeModeObj.hashData.get(id);
-
+		var data = ChangeBtnStatus.hashData.get(id);
 		for (var i = 0; i < model.columns.length; i++) {
 			var objTd = document.getElementById(i + 'td' + id);
 			var objValue = (isCancel == 1)
@@ -65,11 +65,11 @@ var ChangeModeObj = {
 				: "update";
 		$('update' + id).addClassName("save");
 		$('update' + id).removeEventListener('click',
-				ChangeModeObj.setEditView, true);
+				ChangeBtnStatus.setEditView, true);
 		$('update' + id).addEventListener('click', App.updateItem, true);
 
 		$('cancel' + id).show();
-		$('cancel' + id).addEventListener('click', ChangeModeObj.setDataView,
+		$('cancel' + id).addEventListener('click', ChangeBtnStatus.setDataView,
 				true);
 	},
 	setDataViewBtn : function(id) {
@@ -78,12 +78,12 @@ var ChangeModeObj = {
 				: "update";
 		$('update' + id).removeClassName("save");
 		$('update' + id).removeEventListener('click', App.updateItem, true);
-		$('update' + id).addEventListener('click', ChangeModeObj.setEditView,
+		$('update' + id).addEventListener('click', ChangeBtnStatus.setEditView,
 				true);
 
 		$('cancel' + id).hide();
 		$('cancel' + id).removeEventListener('click',
-				ChangeModeObj.cancelUpdate, true);
+				ChangeBtnStatus.cancelUpdate, true);
 	},
 	setTbEditable : function(td, colName, value) {
 		td.removeChild(td.firstChild);
@@ -91,12 +91,11 @@ var ChangeModeObj = {
 		td.appendChild(inputTextNode);
 		inputTextNode.setAttribute('id', colName);
 		inputTextNode.setAttribute('value', value);
-
 	},
 	setButtonDisable : function(id) {
 		var model = App.modelObj;
 		for (var i = 0; i < model.dataCount; i++) {
-			$$('button.delete' + model.name)[i].disabled = true;
+			$$('button.delete' + model.name)[i].disabled = false;
 		}
 		for (var i = 0; i < $$('button.open').length; i++) {
 			$$('button.open')[i].disabled = true;
@@ -113,15 +112,17 @@ var ChangeModeObj = {
 				? td.firstChild.nodeValue
 				: td.firstChild.value;
 	},
-	disableStudentBtn : function() {
+	disableStudentBtn : function() { // 進入學生詳細資料時，將學生的CRUD Button disable
 		$('createStudent').disabled = true;
+
 		for (var i = 0; i < Student.dataCount; i++) {
 			$$('button.updateStudent')[i].disabled = true;
 			$$('button.deleteStudent')[i].disabled = true;
 			$$('button.open')[i].disabled = false;
 		}
+
 	},
-	enableStdBtn : function() {
+	enableStdBtn : function() { // 離開學生詳細資料時，重新enable學生CRUD
 		$('createStudent').disabled = false;
 		for (var i = 0; i < Student.dataCount; i++) {
 			$$('button.updateStudent')[i].disabled = false;
@@ -129,5 +130,4 @@ var ChangeModeObj = {
 			$$('button.open')[i].disabled = false;
 		}
 	}
-
 }

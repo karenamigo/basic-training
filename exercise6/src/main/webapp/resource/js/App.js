@@ -1,32 +1,45 @@
-var App = {
+var App = { // 負責控制CRUD執行
 	modelObj : null,
+	studentId : null,
+	parentModelObj : null,
+	childModelObj : null,
 	list : function() {
 		App.modelObj = Student;
 		var url = "/exercise6/student/loadStudents";
 		App.doPost(url, App.listCallback, null);
 	},
 	createItem : function() {
+
 		var model = App.modelObj;
 		var modelName = model.name.toLowerCase();
-		var url = "/exercise6/student/add";
-		var params = model.columns[0].name + "="
-				+ $(modelName + BuildUIObj.title[0]).value;
+		if (modelName == "student") {
+			var url = "/exercise6/" + modelName + "/add";
+			params = model.columns[0].name + "="
+					+ $(modelName + BuildUIObj.title[0]).value;
+		} else {
+			console.log(studentId);
+			var url = "/exercise6/" + modelName + "/add";
+
+			params = "id=" + studentId + "&" + model.columns[0].name + "="
+					+ $(modelName + BuildUIObj.title[0]).value;
+		}
 		for (var i = 1; i < model.columns.length; i++) {
 			params += "&" + (model.columns[i].name) + "="
 					+ $(modelName + BuildUIObj.title[i]).value;
 		}
+		console.log(url);
 		App.doPost(url, App.crudCallback, params);
 	},
 	updateItem : function() {
 		var model = App.modelObj;
+		var modelName = model.name.toLowerCase();
 		var id = $(this).value;
 		console.log("id=" + id);
-		var url = "/exercise6/student/update/" + $(this).value;
+		var url = "/exercise6/" + modelName + "/update/" + $(this).value;
 		console.log("url=" + url);
 		var modelName = model.name.toLowerCase();
 		var params = "id=" + id;
 		model.data.id = $(this).value;
-		console.log("model_data_id" + model.data.id);
 
 		for (var i = 0; i < model.columns.length; i++) {
 			var value = $(i + 'td' + id).firstChild.value;
@@ -43,7 +56,7 @@ var App = {
 	},
 	showDetails : function() {
 		App.modelObj = Course; // 指定model為course
-		var studentId = (String($(this).value) != "undefined")
+		studentId = (String($(this).value) != "undefined")
 				? $(this).value
 				: $("createStudent").value;
 		var url = "/exercise6/student/detail/" + $(this).value;
@@ -53,17 +66,18 @@ var App = {
 
 		var div = document.getElementById("listCourseDiv");// 使用toggle方式來做listCourseDiv的show&hide
 		if (div.style.display == 'block') {
-			ChangeModeObj.enableStdBtn();
+			ChangeBtnStatus.enableStdBtn();
 			div.style.display = 'none';
 			return;
 		} else {
-			ChangeModeObj.disableStudentBtn();
+			ChangeBtnStatus.disableStudentBtn();
 			div.style.display = 'block';
 		}
 	},
-
 	deleteItem : function() {
-		var url = "/exercise6/student/delete/" + $(this).value;
+		var model = App.modelObj;
+		var modelName = model.name.toLowerCase();
+		var url = "/exercise6/" + modelName + "/delete/" + $(this).value;
 		if (confirm("sure to delete this?"))
 			App.doPost(url, App.crudCallback, null);
 	},

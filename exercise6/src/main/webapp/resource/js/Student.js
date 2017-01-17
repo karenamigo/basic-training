@@ -1,6 +1,5 @@
 var Student = {
 	name : "Student",
-
 	columnCount : 5,
 	displayCount : 4,
 	data : {

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import exercise6.model.Course;
 import exercise6.model.Student;
+import exercise6.service.CourseService;
 import exercise6.service.StudentService;
 
 @Controller
@@ -21,6 +22,9 @@ public class StudentController {
 
 	@Autowired
 	StudentService studentService;
+
+	@Autowired
+	CourseService courseService;
 
 	@ResponseBody
 	@RequestMapping(

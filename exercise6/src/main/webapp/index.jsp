@@ -17,7 +17,7 @@
 <script language="javascript"
 	src="${pageContext.servletContext.contextPath}/resource/bootstrap-3.3.7/prototype.js"></script>
 <script language="javascript"
-	src="${pageContext.servletContext.contextPath }/resource/bootstrap-3.3.7/ChangeModeObj.js"></script>
+	src="${pageContext.servletContext.contextPath }/resource/bootstrap-3.3.7/ChangeBtnStatus.js"></script>
 <script language="javascript"
 	src="${pageContext.servletContext.contextPath}/resource/js/Student.js"></script>
 <script language="javascript"
@@ -38,7 +38,6 @@
 <body onload="App.list()">
 	<div id="listStudentDiv"></div>
 	<p style="padding: 7px"></p>
-	<div id="stdcourseTableTitle"></div>
 	<div id="listCourseDiv"></div>
 </body>
 </html>

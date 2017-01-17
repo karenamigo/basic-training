@@ -1,7 +1,6 @@
 package exercise6.model;
 
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -63,6 +62,10 @@ public class Student {
 		this.address = address;
 		this.age = age;
 		this.department = department;
+	}
+
+	public void addCourse(Course course) {
+		courses.add(course);
 	}
 
 	public void setAddress(String address) {

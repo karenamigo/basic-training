@@ -22,7 +22,7 @@ var Ajax = {
 
 		xmlhttp.setRequestHeader('Content-Type',
 				'application/x-www-form-urlencoded');
-		// console.log(params);
+		 console.log(params);
 		xmlhttp.send(params);
 	}
 }

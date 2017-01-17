@@ -1,9 +1,7 @@
 var TableBuilder = {
 	name : "TableBuilder",
-	category : null,
 	createRow : function() {
 		var model = App.modelObj;
-		// console.log("TableBuilder model=" + model);
 		var tr = document.createElement('tr');
 		for (var i = 0; i < model.columns.length; i++) {
 			var td = CreateElement.buildTd(tr);

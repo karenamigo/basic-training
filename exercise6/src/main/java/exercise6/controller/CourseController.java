@@ -1,7 +1,5 @@
 package exercise6.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,21 +15,14 @@ import exercise6.service.StudentService;
 @Controller
 @RequestMapping(
 	value = "/course")
+@ResponseBody
 public class CourseController {
 
 	@Autowired
 	CourseService courseService;
 
+	@Autowired
 	StudentService studentService;
-
-	@ResponseBody
-	@RequestMapping(
-		value = "/loadCourses/{studentId}")
-	public List<Course> loadCourses(@PathVariable int studentId) {
-		Student student = studentService.getById(studentId);
-		List<Course> course = student.getCourses();
-		return course;
-	}
 
 	@RequestMapping(
 		value = "/delete/{courseId}")
@@ -41,26 +32,17 @@ public class CourseController {
 
 	@RequestMapping(
 		value = "/update/{courseId}")
-	@ResponseBody
 	public void update(@ModelAttribute Course course) {
 		courseService.update(course);
 	}
 
 	@RequestMapping(
-		value = "/detail/{courseId}")
-	public Course detail(@PathVariable int courseId) {
-		return courseService.getById(courseId);
-	}
-
-	@RequestMapping(
 		value = "/add")
-	public void add(@ModelAttribute Course course) {
-		if (course.getId() == 0) {
-			courseService.add(course);
-		} else {
-			courseService.update(course);
-		}
-
+	public void add(Course course) {
+		//	System.out.println(studentId);
+		Student student = studentService.getById(102);
+		//	System.out.println(studentId);
+		student.addCourse(course);
+		courseService.add(course);
 	}
-
 }
