@@ -9,7 +9,6 @@ var ChangeBtnStatus = {
 		var open = document.getElementById('open' + id);
 
 		for (var i = 0, size = model.columns.length; i < size; i++) {
-			// jquery foreach
 			var objTd = document.getElementById(i + 'td' + id);
 			var objValue = (objTd.firstChild.value == id) ? open : objTd; // 不要用firstchild，使用class帶入當行所有資料即可
 			objValue = ChangeBtnStatus.getElementValue(objValue);

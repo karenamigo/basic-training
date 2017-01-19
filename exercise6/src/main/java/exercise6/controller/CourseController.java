@@ -38,11 +38,11 @@ public class CourseController {
 
 	@RequestMapping(
 		value = "/add")
-	public void add(Course course) {
-		//	System.out.println(studentId);
-		Student student = studentService.getById(102);
-		//	System.out.println(studentId);
-		student.addCourse(course);
+	public void add(@ModelAttribute Course course, @PathVariable Integer studentId) {
+		Student student = studentService.getById(studentId);
 		courseService.add(course);
+		student.addCourse(course);
+		studentService.update(student);
+
 	}
 }

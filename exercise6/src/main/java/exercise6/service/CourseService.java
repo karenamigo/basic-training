@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import exercise6.dao.GenericDao;
 import exercise6.model.Course;
+import exercise6.model.Student;
 
 @Service("CourseService")
 public class CourseService {
@@ -24,6 +25,7 @@ public class CourseService {
 
 	@Transactional
 	public void add(Course course) {
+
 		courseDao.add(course);
 	}
 

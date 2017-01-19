@@ -35,7 +35,7 @@
 
 </head>
 <h3>List of Students</h3>
-<body onload="App.list()">
+<body onload="App.list(Student,Course)">
 	<div id="listStudentDiv"></div>
 	<p style="padding: 7px"></p>
 	<div id="listCourseDiv"></div>

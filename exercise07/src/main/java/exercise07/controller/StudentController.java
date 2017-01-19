@@ -1,0 +1,64 @@
+package exercise07.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import exercise07.model.Course;
+import exercise07.model.Student;
+import exercise07.service.CourseService;
+import exercise07.service.StudentService;
+
+@Controller
+@RequestMapping(
+	value = "/student")
+@ResponseBody //為了要使content-type = application/json
+public class StudentController {
+
+	@Autowired
+	StudentService studentService;
+
+	@Autowired
+	CourseService courseService;
+
+	@ResponseBody
+	@RequestMapping(
+		value = "/loadStudents")
+	public List<Student> loadStudents() {
+		return studentService.list();
+	}
+
+	@RequestMapping(
+		value = "/delete/{studentId}")
+	public void delete(@PathVariable Integer studentId) {
+		studentService.delete(studentId);
+	}
+
+	@RequestMapping(
+		value = "/update/{studentId}")
+	public void update(@ModelAttribute Student student) {
+		studentService.update(student);
+	}
+
+	@RequestMapping(
+		value = "/detail/{studentId}")
+	@ResponseBody
+	public List<Course> detail(@PathVariable int studentId) {
+		Student student = studentService.getById(studentId);
+		List<Course> course = student.getCourses();
+		return course;
+	}
+
+	@RequestMapping(
+		value = "/add")
+	public void add(@ModelAttribute Student student) {
+		if (student.getId() == null)
+			studentService.add(student);
+	}
+
+}

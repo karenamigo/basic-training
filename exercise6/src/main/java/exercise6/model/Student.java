@@ -56,12 +56,13 @@ public class Student {
 
 	}
 
-	public Student(int id, String name, String age, String address, String department) {
+	public Student(int id, String name, String age, String address, String department, Course course) {
 		this.id = id;
 		this.name = name;
 		this.address = address;
 		this.age = age;
 		this.department = department;
+		this.courses.add(course);
 	}
 
 	public void addCourse(Course course) {

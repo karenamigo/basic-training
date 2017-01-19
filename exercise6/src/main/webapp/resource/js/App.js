@@ -3,8 +3,10 @@ var App = { // 負責控制CRUD執行
 	studentId : null,
 	parentModelObj : null,
 	childModelObj : null,
-	list : function() {
-		App.modelObj = Student;
+	list : function(parentModelObj, childModelObj) {
+		App.parentModelObj = parentModelObj;
+		App.childModelObj = childModelObj;
+		App.modelObj = App.parentModelObj;
 		var url = "/exercise6/student/loadStudents";
 		App.doPost(url, App.listCallback, null);
 	},
@@ -19,8 +21,7 @@ var App = { // 負責控制CRUD執行
 		} else {
 			console.log(studentId);
 			var url = "/exercise6/" + modelName + "/add";
-
-			params = "id=" + studentId + "&" + model.columns[0].name + "="
+			params = model.columns[0].name + "="
 					+ $(modelName + BuildUIObj.title[0]).value;
 		}
 		for (var i = 1; i < model.columns.length; i++) {
@@ -56,6 +57,7 @@ var App = { // 負責控制CRUD執行
 	},
 	showDetails : function() {
 		App.modelObj = Course; // 指定model為course
+		var id = event.target.value;
 		studentId = (String($(this).value) != "undefined")
 				? $(this).value
 				: $("createStudent").value;
@@ -73,6 +75,10 @@ var App = { // 負責控制CRUD執行
 			ChangeBtnStatus.disableStudentBtn();
 			div.style.display = 'block';
 		}
+	},
+	getModelName : function() {
+		var model = App.modelObj;
+		var modelName = model.name.toLowerCase();
 	},
 	deleteItem : function() {
 		var model = App.modelObj;
