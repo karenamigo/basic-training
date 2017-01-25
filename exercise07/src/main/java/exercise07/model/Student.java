@@ -48,7 +48,7 @@ public class Student {
 	@OneToMany(
 		cascade = CascadeType.ALL)
 	@JoinColumn(
-		name = "student_id")
+		name = "stdId")
 	@Autowired
 	private List<Course> courses;
 
@@ -56,13 +56,22 @@ public class Student {
 
 	}
 
-	public Student(int id, String name, String age, String address, String department, Course course) {
+	public Student(int id, String name, String age, String address, String department) {
 		this.id = id;
 		this.name = name;
 		this.address = address;
 		this.age = age;
 		this.department = department;
-		this.courses.add(course);
+
+	}
+
+	public Student(String name, String age, String address, String department) {
+
+		this.name = name;
+		this.address = address;
+		this.age = age;
+		this.department = department;
+
 	}
 
 	public void addCourse(Course course) {

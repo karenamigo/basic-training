@@ -25,7 +25,6 @@ public class CourseService {
 
 	@Transactional
 	public void add(Course course) {
-
 		courseDao.add(course);
 	}
 

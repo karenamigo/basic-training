@@ -10,7 +10,7 @@ var ChangeBtnStatus = {
 
 		for (var i = 0, size = model.columns.length; i < size; i++) {
 			var objTd = document.getElementById(i + 'td' + id);
-			var objValue = (objTd.firstChild.value == id) ? open : objTd; // 不要用firstchild，使用class帶入當行所有資料即可
+			var objValue = (objTd.firstChild.value == id) ? open : objTd;
 			objValue = ChangeBtnStatus.getElementValue(objValue);
 			data.push(objValue);
 			ChangeBtnStatus.setTbEditable(objTd, model.columns[i].name,

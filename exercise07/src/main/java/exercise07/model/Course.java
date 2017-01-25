@@ -1,5 +1,6 @@
 package exercise07.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
@@ -28,6 +30,8 @@ public class Course {
 		name = "name")
 	private String name;
 
+	private int stdId;
+
 	public Course() {
 
 	}
@@ -40,6 +44,14 @@ public class Course {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	@Column(
+		name = "student_id")
+	@OneToMany(
+			cascade = CascadeType.ALL)
+	public void setStdId(int stdId) {
+		this.stdId = stdId;
 	}
 
 	public int getId() {

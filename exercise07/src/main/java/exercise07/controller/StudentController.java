@@ -3,9 +3,11 @@ package exercise07.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -29,20 +31,35 @@ public class StudentController {
 	@ResponseBody
 	@RequestMapping(
 		value = "/loadStudents")
-	public List<Student> loadStudents() {
-		return studentService.list();
+	public ResponseEntity<List<Student>> loadStudents() {
+		List<Student> students = studentService.list();
+		if (students == null || students.isEmpty()) {
+			return new ResponseEntity<List<Student>>(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<List<Student>>(students, HttpStatus.OK);
 	}
 
 	@RequestMapping(
 		value = "/delete/{studentId}")
-	public void delete(@PathVariable Integer studentId) {
+	public ResponseEntity<Void> delete(@PathVariable int studentId) {
+		Student std = studentService.getById(studentId);
+		if (std == null) {
+			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+		}
 		studentService.delete(studentId);
+		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 
 	@RequestMapping(
 		value = "/update/{studentId}")
-	public void update(@ModelAttribute Student student) {
+	@ResponseBody
+	public ResponseEntity<Student> update(@PathVariable int studentId, @RequestBody Student student) {
+		Student std = studentService.getById(studentId);
+		if (std == null) {
+			return new ResponseEntity<Student>(HttpStatus.NOT_FOUND);
+		}
 		studentService.update(student);
+		return new ResponseEntity<Student>(student, HttpStatus.OK);
 	}
 
 	@RequestMapping(
@@ -56,9 +73,9 @@ public class StudentController {
 
 	@RequestMapping(
 		value = "/add")
-	public void add(@ModelAttribute Student student) {
-		if (student.getId() == null)
-			studentService.add(student);
+	@ResponseBody
+	public ResponseEntity<Void> add(@RequestBody Student student) {
+		studentService.add(student);
+		return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}
-
 }
